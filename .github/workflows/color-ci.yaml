@@ -36,7 +36,8 @@ jobs:
       run: |
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             export "PR_TAG=${{ github.head_ref }}_${{ github.event.pull_request.number }}"
-
+        fi
+        
     - name: Push To Registry
       uses: redhat-actions/push-to-registry@v2.5.1
       with:
