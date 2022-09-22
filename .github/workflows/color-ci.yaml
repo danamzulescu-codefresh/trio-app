@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - color/**
+  pull_request:
+    types: [opened, reopened, edited]
+    paths:
+      - color/**
 
 jobs:
 
@@ -27,12 +31,17 @@ jobs:
       run: |
         cd color;
         docker build . --tag codefresh_sa/color-service:${{ steps.vars.outputs.sha_short }}
+        
+    - name: Create PR Tag if needed
+      run: |
+        if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            export "PR_TAG=${{ github.head_ref }}_${{ github.event.pull_request.number }}"
 
     - name: Push To Registry
       uses: redhat-actions/push-to-registry@v2.5.1
       with:
         image: codefresh_sa/color-service
-        tags: ${{ steps.vars.outputs.sha_short }}
+        tags: ${{ steps.vars.outputs.sha_short }} $PR_TAG
         registry: quay.io
         username: codefresh_sa+csdp_salesdemo_dev
         password: ${{ secrets.docker_registry_password }}
