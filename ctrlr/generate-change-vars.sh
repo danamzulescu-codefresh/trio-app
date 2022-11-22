@@ -2,7 +2,7 @@
 
 # Creates Codefresh pipeline variables which can be used to automate a
 # pretend developer making commits to a demo Git repo (changing a color).
-
+#test
 # Outputs
 # -------
 # SKIP_THIS_TIME = true or false; frequency determined by the input ratio
