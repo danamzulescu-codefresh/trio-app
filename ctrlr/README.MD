@@ -21,3 +21,5 @@ To run unit tests inside the container execute:
 and then in the new command promt run
 
 `pip install pytest && pytest`
+
+this can be run in a Docker iamge as long as the tests are mounted locally.
